@@ -2,127 +2,145 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Jawab Jujur Ya 💙</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jawab Jujur 💙</title>
 
 <style>
-  body {
-    margin: 0;
-    height: 100vh;
-    background: linear-gradient(135deg, #e8f0ff, #f7fbff);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Segoe UI', sans-serif;
-    overflow: hidden;
-  }
+* {
+  box-sizing: border-box;
+}
 
-  .card {
-    background: #ffffff;
-    padding: 40px 50px;
-    border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-    text-align: center;
-    position: relative;
-    width: 320px;
-  }
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(180deg, #eaf2ff, #ffffff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
 
-  h1 {
-    color: #4a6cff;
-    margin-bottom: 10px;
-  }
+.card {
+  width: 92vw;
+  max-width: 420px;
+  min-height: 360px;
+  background: #fff;
+  padding: 36px 28px;
+  border-radius: 26px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.12);
+  text-align: center;
+}
 
-  p {
-    color: #666;
-    margin-bottom: 30px;
-  }
+h1 {
+  color: #4a6cff;
+  font-size: 26px;
+  margin-bottom: 12px;
+}
 
-  .buttons {
-    position: relative;
-    height: 100px;
-  }
+p {
+  color: #666;
+  font-size: 18px;
+  margin-bottom: 36px;
+}
 
-  button {
-    padding: 14px 32px;
-    font-size: 18px;
-    border-radius: 14px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.35s ease;
-    position: absolute;
-  }
+.buttons {
+  position: relative;
+  height: 160px;
+}
 
-  #yes {
-    background: #7b9cff;
-    color: white;
-    left: 40px;
-  }
+button {
+  width: 150px;
+  height: 54px;
+  font-size: 20px;
+  border-radius: 18px;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  touch-action: manipulation;
+  transition: transform 0.45s cubic-bezier(.22,.61,.36,1),
+              box-shadow 0.3s ease;
+}
 
-  #no {
-    background: #ffd6dc;
-    color: #c94b5a;
-    left: 170px;
-  }
+#yes {
+  background: #7b9cff;
+  color: white;
+  left: 0;
+  bottom: 0;
+}
+
+#no {
+  background: #ffe3e8;
+  color: #c94b5a;
+  right: 0;
+  bottom: 0;
+}
 </style>
 </head>
 
 <body>
 
 <div class="card">
-  <h1>Jujur ya… 💙</h1>
-  <p>Kamu mau jalan bareng aku nggak?</p>
+  <h1>Jujur ya 💙</h1>
+  <p>Kamu mau jalan bareng aku?</p>
 
-  <div class="buttons">
+  <div class="buttons" id="area">
     <button id="yes">Iya</button>
     <button id="no">Tidak</button>
   </div>
 </div>
 
 <script>
-  const noBtn = document.getElementById("no");
-  const yesBtn = document.getElementById("yes");
-  const card = document.querySelector(".card");
+const noBtn = document.getElementById("no");
+const yesBtn = document.getElementById("yes");
+const area = document.getElementById("area");
 
-  noBtn.addEventListener("mouseenter", () => {
-    const maxX = card.offsetWidth - noBtn.offsetWidth;
-    const maxY = 80;
+let yesScale = 1;
 
-    const x = Math.random() * maxX;
-    const y = Math.random() * maxY;
+function moveNo() {
+  const padding = 12;
 
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
+  const maxX = area.clientWidth - noBtn.offsetWidth - padding;
+  const maxY = area.clientHeight - noBtn.offsetHeight - padding;
 
-    // efek dramatis 😌
-    yesBtn.style.transform = "scale(1.35)";
-    noBtn.style.transform = "scale(0.7)";
-    yesBtn.style.boxShadow = "0 10px 25px rgba(123,156,255,0.6)";
+  const x = Math.random() * maxX;
+  const y = Math.random() * maxY;
+
+  // reset dulu → anti-stuck
+  noBtn.style.transform = "translate(0,0) scale(1)";
+
+  requestAnimationFrame(() => {
+    noBtn.style.transform = `translate(${x}px, ${y}px) scale(0.75)`;
   });
 
-  yesBtn.addEventListener("mouseenter", () => {
-    yesBtn.style.transform = "scale(1.35)";
-  });
+  yesScale = Math.min(yesScale + 0.1, 1.7);
+  yesBtn.style.transform = `scale(${yesScale})`;
+  yesBtn.style.boxShadow = "0 14px 32px rgba(123,156,255,0.5)";
+}
 
-  yesBtn.addEventListener("mouseleave", () => {
-    yesBtn.style.transform = "scale(1)";
-  });
+// SATU event universal (anti bug mobile)
+noBtn.addEventListener("pointerdown", (e) => {
+  e.preventDefault();
+  moveNo();
+});
 
-  yesBtn.addEventListener("click", () => {
-    document.body.innerHTML = `
-      <div style="
-        height:100vh;
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        background:linear-gradient(135deg,#e8f0ff,#ffffff);
-        font-family:Segoe UI;
-        text-align:center;">
-        <h1 style="color:#4a6cff;">
-          Yeay 💙<br>
-          Aku tunggu yaa 😊
-        </h1>
-      </div>
-    `;
-  });
+yesBtn.addEventListener("click", () => {
+  document.body.innerHTML = `
+    <div style="
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background:linear-gradient(180deg,#eaf2ff,#ffffff);
+      font-family:system-ui;
+      text-align:center;
+      padding:24px;">
+      <h1 style="color:#4a6cff;font-size:28px;">
+        Yeay 💙<br>
+        Aku seneng banget 😌
+      </h1>
+    </div>
+  `;
+});
 </script>
 
 </body>
