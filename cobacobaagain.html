@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Jawab Jujur Ya 💙</title>
+
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #e8f0ff, #f7fbff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+  }
+
+  .card {
+    background: #ffffff;
+    padding: 40px 50px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    text-align: center;
+    position: relative;
+    width: 320px;
+  }
+
+  h1 {
+    color: #4a6cff;
+    margin-bottom: 10px;
+  }
+
+  p {
+    color: #666;
+    margin-bottom: 30px;
+  }
+
+  .buttons {
+    position: relative;
+    height: 100px;
+  }
+
+  button {
+    padding: 14px 32px;
+    font-size: 18px;
+    border-radius: 14px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.35s ease;
+    position: absolute;
+  }
+
+  #yes {
+    background: #7b9cff;
+    color: white;
+    left: 40px;
+  }
+
+  #no {
+    background: #ffd6dc;
+    color: #c94b5a;
+    left: 170px;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h1>Jujur ya… 💙</h1>
+  <p>Kamu mau jalan bareng aku nggak?</p>
+
+  <div class="buttons">
+    <button id="yes">Iya</button>
+    <button id="no">Tidak</button>
+  </div>
+</div>
+
+<script>
+  const noBtn = document.getElementById("no");
+  const yesBtn = document.getElementById("yes");
+  const card = document.querySelector(".card");
+
+  noBtn.addEventListener("mouseenter", () => {
+    const maxX = card.offsetWidth - noBtn.offsetWidth;
+    const maxY = 80;
+
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+
+    // efek dramatis 😌
+    yesBtn.style.transform = "scale(1.35)";
+    noBtn.style.transform = "scale(0.7)";
+    yesBtn.style.boxShadow = "0 10px 25px rgba(123,156,255,0.6)";
+  });
+
+  yesBtn.addEventListener("mouseenter", () => {
+    yesBtn.style.transform = "scale(1.35)";
+  });
+
+  yesBtn.addEventListener("mouseleave", () => {
+    yesBtn.style.transform = "scale(1)";
+  });
+
+  yesBtn.addEventListener("click", () => {
+    document.body.innerHTML = `
+      <div style="
+        height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        background:linear-gradient(135deg,#e8f0ff,#ffffff);
+        font-family:Segoe UI;
+        text-align:center;">
+        <h1 style="color:#4a6cff;">
+          Yeay 💙<br>
+          Aku tunggu yaa 😊
+        </h1>
+      </div>
+    `;
+  });
+</script>
+
+</body>
+</html>
