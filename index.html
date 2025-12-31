@@ -3,27 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jawab Jujur 💙</title>
+<title>Buat adek aku ffaza 💙</title>
 
 <style>
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
   height: 100vh;
+  font-family: system-ui, sans-serif;
   background: linear-gradient(180deg, #eaf2ff, #ffffff);
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
+/* CARD */
 .card {
-  width: 92vw;
+  width: 94vw;
   max-width: 420px;
-  min-height: 360px;
+  min-height: 400px;
   background: #fff;
   padding: 36px 28px;
   border-radius: 26px;
@@ -34,113 +33,115 @@ body {
 h1 {
   color: #4a6cff;
   font-size: 26px;
-  margin-bottom: 12px;
 }
 
 p {
-  color: #666;
   font-size: 18px;
-  margin-bottom: 36px;
+  color: #666;
+  margin-bottom: 40px;
 }
 
+/* BUTTON AREA (LOCKED) */
 .buttons {
   position: relative;
-  height: 160px;
+  width: 100%;
+  height: 180px;
+  overflow: hidden; /* 🔒 KUNCI */
+  border-radius: 16px;
 }
 
 button {
+  position: absolute;
   width: 150px;
-  height: 54px;
+  height: 56px;
   font-size: 20px;
   border-radius: 18px;
   border: none;
   cursor: pointer;
-  position: absolute;
+  transition: top 0.35s ease, left 0.35s ease, transform 0.3s ease;
   touch-action: manipulation;
-  transition: transform 0.45s cubic-bezier(.22,.61,.36,1),
-              box-shadow 0.3s ease;
 }
 
 #yes {
   background: #7b9cff;
   color: white;
   left: 0;
-  bottom: 0;
+  top: 110px;
 }
 
 #no {
   background: #ffe3e8;
   color: #c94b5a;
-  right: 0;
-  bottom: 0;
+  left: 180px;
+  top: 110px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="card">
-  <h1>Jujur ya 💙</h1>
-  <p>Kamu mau jalan bareng aku?</p>
-
-  <div class="buttons" id="area">
-    <button id="yes">Iya</button>
-    <button id="no">Tidak</button>
-  </div>
-</div>
-
 <script>
-const noBtn = document.getElementById("no");
-const yesBtn = document.getElementById("yes");
-const area = document.getElementById("area");
+alert("halo adekkkk");
+alert("aku mau ada mau bilang sesuatu niiii");
+alert("tapi ga disiniii soalnya gacukup wkwk");
 
-let yesScale = 1;
-
-function moveNo() {
-  const padding = 12;
-
-  const maxX = area.clientWidth - noBtn.offsetWidth - padding;
-  const maxY = area.clientHeight - noBtn.offsetHeight - padding;
-
-  const x = Math.random() * maxX;
-  const y = Math.random() * maxY;
-
-  // reset dulu → anti-stuck
-  noBtn.style.transform = "translate(0,0) scale(1)";
-
-  requestAnimationFrame(() => {
-    noBtn.style.transform = `translate(${x}px, ${y}px) scale(0.75)`;
-  });
-
-  yesScale = Math.min(yesScale + 0.1, 1.7);
-  yesBtn.style.transform = `scale(${yesScale})`;
-  yesBtn.style.boxShadow = "0 14px 32px rgba(123,156,255,0.5)";
+if (!confirm("Penasaran ndak ni?")) {
+  alert("yakin ga penasarannn???");
 }
 
-// SATU event universal (anti bug mobile)
-noBtn.addEventListener("pointerdown", (e) => {
-  e.preventDefault();
-  moveNo();
-});
+if (!confirm("serius nih kamu ga penasaran sama apa yang aku tuliss?")) {
+  alert("yah yaudah deh kalau enggak penasaran:( kalau udah penasaran buka lagi yaaaa papay :3");
+} else {
+  showCard();
+}
 
-yesBtn.addEventListener("click", () => {
+function showCard() {
   document.body.innerHTML = `
-    <div style="
-      height:100vh;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      background:linear-gradient(180deg,#eaf2ff,#ffffff);
-      font-family:system-ui;
-      text-align:center;
-      padding:24px;">
-      <h1 style="color:#4a6cff;font-size:28px;">
-        Yeay 💙<br>
-        Aku seneng banget 😌
-      </h1>
+    <div class="card">
+      <h1>JAWABBBBB ADA TESSS NIH 💙</h1>
+      <p>Kamu sayang gaaa sama akuuuu?</p>
+
+      <div class="buttons" id="area">
+        <button id="yes">Iya</button>
+        <button id="no">Enggak</button>
+      </div>
     </div>
   `;
-});
+
+  const noBtn = document.getElementById("no");
+  const yesBtn = document.getElementById("yes");
+  const area = document.getElementById("area");
+
+  let yesScale = 1;
+
+  function moveNo() {
+    const padding = 10;
+
+    const maxX = area.clientWidth - noBtn.offsetWidth - padding;
+    const maxY = area.clientHeight - noBtn.offsetHeight - padding;
+
+    const x = Math.max(padding, Math.random() * maxX);
+    const y = Math.max(padding, Math.random() * maxY);
+
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+    noBtn.style.transform = "scale(0.75)";
+
+    yesScale = Math.min(yesScale + 0.12, 1.6);
+    yesBtn.style.transform = `scale(${yesScale})`;
+  }
+
+  // tombol Tidak kabur
+  noBtn.addEventListener("pointerdown", (e) => {
+    e.preventDefault();
+    moveNo();
+  });
+
+  // tombol Iya redirect
+  yesBtn.addEventListener("click", () => {
+    window.location.href = "https://newyeargiftffaza.carrd.co/";
+  });
+}
 </script>
 
 </body>
